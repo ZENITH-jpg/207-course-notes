@@ -40,6 +40,9 @@ public class Aliasing {
      */
     public static void addInPlace(int[] arr, int amount) {
         // TODO: complete
+        for (int i = 0; i < arr.length; i++){
+            arr[i] += amount;
+        }
     }
 
     /**
@@ -52,6 +55,10 @@ public class Aliasing {
      */
     public static int[] addCopy(int[] arr, int amount) {
         // TODO: complete
-        return new int[1];
+        int[] arrCopy = arr.clone();
+        for (int i = 0; i < arrCopy.length; i++){
+            arrCopy[i] += amount;
+        }
+        return arrCopy;
     }
 }
