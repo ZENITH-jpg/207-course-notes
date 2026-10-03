@@ -831,7 +831,7 @@ class Square extends Rectangle {
 }
 
 class Drawing {
-    private List<Shape> shapes = new ArrayList<>();
+    private final List<Shape> shapes = new ArrayList<>();
 
     public void add(Shape shape) {
         shapes.add(shape);
