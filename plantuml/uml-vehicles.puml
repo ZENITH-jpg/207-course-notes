@@ -1,7 +1,6 @@
 @startuml
 skinparam dpi 150
 skinparam classAttributeIconSize 0
-hide empty members
 
 interface Chargeable {
   + charge() : void

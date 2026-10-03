@@ -1,7 +1,6 @@
 @startuml
 skinparam dpi 150
 skinparam classAttributeIconSize 0
-hide empty members
 
 ' Your task (Chapter 8, Question 1): draw the UML class diagram for the library
 ' specification — items, books, DVDs, reference-only items, members, librarians,
