@@ -109,7 +109,13 @@ public class NumberTriangle {
     //       value of wherever you ended up. An empty path means "stay here".
     //       Hint: String#charAt(int) and String#length() are all you need for the
     //       iterative version; a recursive version can use String#substring(1).
-    return 0;
+    if(path.equals("")) {
+      return this.root;
+    }
+    if(path.charAt(0) == 'l') {
+      return this.left.retrieve(path.substring(1));
+    }
+    return this.right.retrieve(path.substring(1));
   }
 
   /**
@@ -170,17 +176,28 @@ public class NumberTriangle {
     // TODO: define any variables that you want to use to keep track of things
     //       between iterations of the loop below (for example, the row of
     //       NumberTriangle objects that you built on the previous iteration).
-
+    NumberTriangle[] prev =  new NumberTriangle[1];
     // We need to return the top of the NumberTriangle, so here is a variable for it.
     NumberTriangle top = null;
-
     String line = br.readLine();
+    prev[0] = new NumberTriangle(Integer.parseInt(line));
+    top = prev[0];
     while (line != null) {
 
       // Remove this line when you are done; it is here so that the starter code
       // prints the contents of the file when you run it.
-      System.out.println(line);
-
+      String[] roots = line.split(" ");
+      if(roots.length != 1){
+        NumberTriangle[] curr = new NumberTriangle[roots.length];
+        for(int i = 0; i < curr.length; i++) {
+          curr[i] = new NumberTriangle(Integer.parseInt(roots[i]));
+        }
+        for(int j = 0; j < prev.length; j++) {
+          prev[j].setLeft(curr[j]);
+          prev[j].setRight(curr[j+1]);
+        }
+        prev = curr;
+      }
       // TODO: process the line. Splitting it on spaces gives you the numbers in
       //       this row; make a NumberTriangle for each one, then wire this row up
       //       as the children of the previous row. Remember the aliasing: the

@@ -43,6 +43,10 @@ import java.util.Locale;
  */
 public class OrderSummary {
 
+  public static final double BIG_TRANS = 200.0;
+  public static final double DISCOUNT = 0.10;
+  public static final double TAX = 0.13;
+
   /**
    * Builds a human-readable, multi-line summary of an order.
    *
@@ -60,7 +64,6 @@ public class OrderSummary {
     //      the code that first uses them. Slide each one down to its first use.
     double subtotal = 0.0;
     int premiumCount = 0;
-    double discount = 0.0;
 
     // TODO (Split Loop, 13.5): this single loop does two unrelated jobs —
     //      accumulating the subtotal and counting premium items. Split it into
@@ -71,18 +74,23 @@ public class OrderSummary {
         premiumCount++;
       }
     }
-
+    double discount = 0.0;
     // TODO: replace the magic numbers below with named constants.
-    if (subtotal > 200.0) {
-      discount = subtotal * 0.10;
+    if (subtotal > BIG_TRANS) {
+      discount = subtotal * DISCOUNT;
     }
     double taxable = subtotal - discount;
-    double tax = taxable * 0.13;
+    double tax = taxable * TAX;
     double total = taxable + tax;
 
     // TODO (Extract Method, 13.2): everything from here down is one job —
     //      formatting the report. Pull it out into its own well-named method
     //      (and the per-item line into a second one).
+    StringBuilder report = getReport(customer, itemNames, itemPrices, premiumCount, subtotal, discount, tax, total);
+    return report.toString();
+  }
+
+  private static StringBuilder getReport(String customer, String[] itemNames, double[] itemPrices, int premiumCount, double subtotal, double discount, double tax, double total) {
     StringBuilder report = new StringBuilder();
     report.append("Order summary for ").append(customer).append("\n");
     report.append("----------------------\n");
@@ -95,6 +103,6 @@ public class OrderSummary {
     report.append(String.format(Locale.US, "Discount: $%.2f\n", discount));
     report.append(String.format(Locale.US, "Tax: $%.2f\n", tax));
     report.append(String.format(Locale.US, "Total: $%.2f", total));
-    return report.toString();
+    return report;
   }
 }
