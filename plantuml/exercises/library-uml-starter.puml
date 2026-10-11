@@ -67,7 +67,7 @@ class Librarian{
 }
 ' TODO: add whatever represents a hold, and connect it to the classes that need
 '       to know about it.
-Class Hold{
+class Hold{
 - item: Item
 - borrower: Member
 - queuePos: int
