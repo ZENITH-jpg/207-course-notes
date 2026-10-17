@@ -26,55 +26,47 @@ abstract class Item {
   + getCatalogueNumber() : String
 }
 
-' TODO: add boxes for Book and DVD. What differs between them — a whole class,
-'       or just the value of a loan-period field?
 class Book {
-    -pages: int
-    +Book(title : String, catalogueNumber: String, borrower : Member, pages : int)
-    +borrow(borrower: Member): void
-    +return(): void
+  -pages: int
+  +Book(title : String, catalogueNumber: String, borrower : Member, pages : int)
+  +borrow(borrower: Member): void
+  +return(): void
 }
 
 class DVD{
-    - time: int
-    + DVD(title : String, catalogueNumber: String, borrower : Member, time : int)
-    + borrow(borrower: Member) : void
-    + return() : void
-    + getTitle() : String
-    + getCatalogueNumber() : String
+  - time: int
+  + DVD(title : String, catalogueNumber: String, borrower : Member, time : int)
+  + borrow(borrower: Member) : void
+  + return() : void
+  + getTitle() : String
+  + getCatalogueNumber() : String
 }
 
-' TODO: reference-only items cannot be borrowed at all. Decide how to say that
-'       in the diagram: a subclass, or an interface (e.g. "Borrowable") that
-'       only some items realize?
 interface Borrowable{
-    - borrower : Member
-    + borrow(borrower: Member) : void
-    + return() : void
-    + getTitle() : String
-    + getCatalogueNumber() : String
+  - borrower : Member
+  + borrow(borrower: Member) : void
+  + return() : void
+  + getTitle() : String
+  + getCatalogueNumber() : String
 }
 
-' TODO: add Member and Librarian. What do they have in common? Add the common
-'       supertype if you think one is warranted.
 class Member{
-    -name: String
-    +Member(name : String)
+  -name: String
+  +Member(name : String)
 }
 class Librarian{
-    -name: String
-    +Librarian(name : String)
+  -name: String
+  +Librarian(name : String)
 }
-' TODO: add whatever represents a hold, and connect it to the classes that need
-'       to know about it.
+
 class Hold{
-    - item: Item
-    - borrower: Member
-    - queuePos: int
-    + Hold(item: Item, borrower: Member, queuePos: int)
-    + moveQueue(pos : int): void
+  - item: Item
+  - borrower: Member
+  - queuePos: int
+  + Hold(item: Item, borrower: Member, queuePos: int)
+  + moveQueue(pos : int): void
 }
-' TODO: add the arrows between all of your types.
+
 Borrowable <|.. DVD
 Borrowable <|.. Book
 Item <|-- DVD
